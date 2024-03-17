@@ -1,8 +1,15 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { useSignUpUser } from "../../hooks/useSignUpUser";
+import { Toaster } from "react-hot-toast";
 
 const SignUp = () => {
+  const { handleChange, handleSignUpUser, registerUser, loading } =
+    useSignUpUser();
+
   return (
     <main className="flex flex-col h-full w-full">
+      <Toaster />
       <header>
         <h1 className="font-bold text-xl text-white">
           BUZZ<span className="text-pink-500">CONNECT</span>
@@ -13,15 +20,17 @@ const SignUp = () => {
           <h1 className="text-3xl font-semibold text-center text-gray-300 ">
             Register
           </h1>
-          <form action="">
+          <form onSubmit={handleSignUpUser}>
             <div className="">
               <label className="label p-2" id="firstName">
                 <span className="text-base label-text">First Name</span>
               </label>
               <input
                 type="text"
-                name=""
+                name="firstName"
                 id="firstName"
+                value={registerUser.firstName}
+                onChange={handleChange}
                 placeholder="Enter first name"
                 className="w-full input input-bordered bg-pink-50 text-gray-500 h-10"
               />
@@ -32,8 +41,10 @@ const SignUp = () => {
               </label>
               <input
                 type="text"
-                name=""
+                name="lastName"
                 id="lastName"
+                value={registerUser.lastName}
+                onChange={handleChange}
                 placeholder="Enter last name"
                 className="w-full input input-bordered bg-pink-50 text-gray-500 h-10"
               />
@@ -44,8 +55,10 @@ const SignUp = () => {
               </label>
               <input
                 type="text"
-                name=""
+                name="userName"
                 id="username"
+                value={registerUser.userName}
+                onChange={handleChange}
                 placeholder="Enter username"
                 className="w-full input input-bordered bg-pink-50 text-gray-500 h-10"
               />
@@ -57,6 +70,8 @@ const SignUp = () => {
               <select
                 name="gender"
                 id="gender"
+                value={registerUser.gender}
+                onChange={handleChange}
                 className="w-full input input-bordered bg-pink-50 text-gray-500 h-10"
               >
                 <option defaultValue>select gender</option>
@@ -70,8 +85,10 @@ const SignUp = () => {
               </label>
               <input
                 type="password"
-                name=""
+                name="password"
                 id="password"
+                value={registerUser.password}
+                onChange={handleChange}
                 placeholder="Enter password"
                 className="w-full input input-bordered bg-pink-50 text-gray-500 h-10"
               />
@@ -81,24 +98,26 @@ const SignUp = () => {
                 <span className="text-base label-text">ConfirmPassword</span>
               </label>
               <input
-                type="confirmPassword"
-                name=""
+                type="password"
+                name="confrimPassword"
                 id="confirmPassword"
+                value={registerUser.confrimPassword}
+                onChange={handleChange}
                 placeholder="Confirm password"
                 className="w-full input input-bordered bg-pink-50 text-gray-500 h-10"
               />
             </div>
             <p className="text-sm  mt-2 inline-block">
               Have an account?{" "}
-              <a
-                href="/login"
+              <Link
+                to="/login"
                 className="hover:underline transition-all text-pink-600"
               >
                 Login
-              </a>
+              </Link>
             </p>
             <div className="">
-              <button className="btn btn-block btn-sm mt-3 bg-pink-600 hover:bg-pink-700 hover:border-pink-700 border-pink-600">
+              <button className="btn btn-block btn-sm mt-3 bg-pink-600 hover:bg-pink-700 hover:border-pink-700 border-pink-600 text-gray-50">
                 Sign up
               </button>
             </div>

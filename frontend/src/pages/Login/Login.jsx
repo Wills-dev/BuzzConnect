@@ -42,15 +42,15 @@ const Login = () => {
             </div>
             <p className="text-sm  mt-2 inline-block">
               Don't have an account?{" "}
-              <a
-                href="/signup"
+              <Link
+                to="/signup"
                 className="hover:underline transition-all text-pink-600"
               >
                 Sign Up
-              </a>
+              </Link>
             </p>
             <div className="">
-              <button className="btn btn-block btn-sm mt-3 bg-pink-600 hover:bg-pink-700 hover:border-pink-700 border-pink-600">
+              <button className="btn btn-block btn-sm mt-3 bg-pink-600 hover:bg-pink-700 hover:border-pink-700 border-pink-600 text-gray-50">
                 Login
               </button>
             </div>
