@@ -3,8 +3,11 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 import { axiosInstance } from "../axiosInstance/baseUrl.js";
+import { useAuthContext } from "../context/AuthContext.jsx";
 
 export const useSignUpUser = () => {
+  const { setAuthUser } = useAuthContext();
+
   const [registerUser, setRegisterUser] = useState({
     firstName: "",
     lastName: "",
@@ -136,6 +139,8 @@ export const useSignUpUser = () => {
               color: "#fff",
             },
           });
+        localStorage.setItem("user", JSON.stringify(data.data));
+        setAuthUser(data?.data);
       } catch (error) {
         console.log(error);
         setLoading(false);
