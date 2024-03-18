@@ -1,9 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useLogin } from "../../hooks/useLogin";
+import { Toaster } from "react-hot-toast";
 
 const Login = () => {
+  const { handleChange, loginDetails, handleLogin, loading } = useLogin();
+
   return (
     <main className="flex flex-col h-full w-full">
+      <Toaster />
       <header>
         <h1 className="font-bold text-xl text-white">
           BUZZ<span className="text-pink-500">CONNECT</span>
@@ -14,15 +19,17 @@ const Login = () => {
           <h1 className="text-3xl font-semibold text-center text-gray-300 ">
             Login
           </h1>
-          <form action="">
+          <form onSubmit={handleLogin}>
             <div className="">
               <label className="label p-2" id="username">
                 <span className="text-base label-text">Username</span>
               </label>
               <input
                 type="text"
-                name=""
+                name="userName"
                 id="username"
+                value={loginDetails.userName}
+                onChange={handleChange}
                 placeholder="Enter username"
                 className="w-full input input-bordered bg-pink-50 text-gray-500 h-10"
               />
@@ -33,9 +40,10 @@ const Login = () => {
               </label>
               <input
                 type="password"
-                name=""
+                name="password"
                 id="password"
-                s
+                value={loginDetails.password}
+                onChange={handleChange}
                 placeholder="Enter password"
                 className="w-full input input-bordered bg-pink-50 text-gray-500 h-10"
               />
@@ -50,8 +58,18 @@ const Login = () => {
               </Link>
             </p>
             <div className="">
-              <button className="btn btn-block btn-sm mt-3 bg-pink-600 hover:bg-pink-700 hover:border-pink-700 border-pink-600 text-gray-50">
-                Login
+              <button
+                className={`btn btn-block btn-sm mt-3   text-gray-50 ${
+                  loading
+                    ? "bg-pink-300 border-pink-300  hover:bg-pink-300 hover:border-pink-300 cursor-not-allowed"
+                    : "bg-pink-600 border-pink-600  hover:bg-pink-700 hover:border-pink-700 "
+                }`}
+              >
+                {loading ? (
+                  <span className="loading loading-dots loading-md"></span>
+                ) : (
+                  "Login"
+                )}
               </button>
             </div>
           </form>
