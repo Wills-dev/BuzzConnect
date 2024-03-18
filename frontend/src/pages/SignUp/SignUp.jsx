@@ -99,9 +99,9 @@ const SignUp = () => {
               </label>
               <input
                 type="password"
-                name="confrimPassword"
+                name="confirmPassword"
                 id="confirmPassword"
-                value={registerUser.confrimPassword}
+                value={registerUser.confirmPassword}
                 onChange={handleChange}
                 placeholder="Confirm password"
                 className="w-full input input-bordered bg-pink-50 text-gray-500 h-10"

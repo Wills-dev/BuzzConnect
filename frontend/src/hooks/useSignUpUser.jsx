@@ -11,7 +11,7 @@ export const useSignUpUser = () => {
     userName: "",
     gender: "",
     password: "",
-    confrimPassword: "",
+    confirmPassword: "",
   });
   const [loading, setLoading] = useState(false);
 
@@ -81,8 +81,8 @@ export const useSignUpUser = () => {
       });
       return true;
     } else if (
-      !registerUser?.confrimPassword ||
-      registerUser?.confrimPassword !== registerUser?.password
+      !registerUser?.confirmPassword ||
+      registerUser?.confirmPassword !== registerUser?.password
     ) {
       toast.error("Confirm password doesn't match password", {
         duration: 4000,
@@ -109,7 +109,7 @@ export const useSignUpUser = () => {
           userName: registerUser.userName,
           gender: registerUser.gender,
           password: registerUser.password,
-          confrimPassword: registerUser.confrimPassword,
+          confirmPassword: registerUser.confirmPassword,
         };
         const res = await fetch("/api/auth/signup", {
           method: "POST",
@@ -118,19 +118,24 @@ export const useSignUpUser = () => {
         });
 
         const data = await res.json();
+        setLoading(false);
+        console.log(data);
+
+        if (data?.error) {
+          throw new Error(data.error);
+        }
         // const data = await axiosInstance.post(
         //   "/auth/signup",
         //   registrationDetails
         // );
-        toast.success("You have successfully signed up to BUZZCONNECT", {
-          duration: 4000,
-          style: {
-            background: "#f74764",
-            color: "#fff",
-          },
-        });
-        setLoading(false);
-        console.log(data);
+        else
+          toast.success("You have successfully signed up to BUZZCONNECT", {
+            duration: 4000,
+            style: {
+              background: "#f74764",
+              color: "#fff",
+            },
+          });
       } catch (error) {
         console.log(error);
         setLoading(false);
