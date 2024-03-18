@@ -1,33 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useConversation from "../store/useConversation";
 
-export const useSendMessage = () => {
-  const [message, setMessage] = useState("");
+export const useGetMessages = () => {
   const [loading, setLoading] = useState(false);
+  //   const [allMessages, setAllMessages] = useState([]);
+
   const { selectedConversation, setMessages, messages } = useConversation();
 
-  const handleSendMessage = async (e) => {
-    e.preventDefault();
-    if (!message) return;
+  const getAllMessages = async () => {
     setLoading(true);
     try {
-      const res = await fetch(
-        `/api/messages/send/${selectedConversation?._id}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message }),
-        }
-      );
+      const res = await fetch(`/api/messages/${selectedConversation?._id}`);
       const data = await res.json();
 
       if (data?.error) {
         throw new Error(data.error);
       }
-      setMessages([...messages, data.data]);
+      setMessages(data?.data);
       setLoading(false);
-      setMessage("");
-      console.log(data);
     } catch (error) {
       setLoading(false);
       console.log(error);
@@ -50,9 +40,10 @@ export const useSendMessage = () => {
       }
     }
   };
-  return {
-    message,
-    setMessage,
-    handleSendMessage,
-  };
+
+  useEffect(() => {
+    if (selectedConversation?._id) getAllMessages();
+  }, [selectedConversation?._id, setMessages]);
+
+  return { loading, messages };
 };

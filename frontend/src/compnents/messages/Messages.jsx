@@ -1,6 +1,6 @@
 import React from "react";
 
-const Messages = ({ sentFrom }) => {
+const Messages = ({ sentFrom, message }) => {
   return (
     <div
       className={`chat ${sentFrom === "Sender" ? "chat-start" : "chat-end"}`}
@@ -17,7 +17,7 @@ const Messages = ({ sentFrom }) => {
           sentFrom === "Sender" ? "bg-pink-200 " : "bg-pink-400 "
         }`}
       >
-        You were the Chosen One!
+        {message?.message}
       </div>
       <div className="chat-footer opacity-50">
         {" "}

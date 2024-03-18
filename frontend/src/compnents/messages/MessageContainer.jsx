@@ -4,9 +4,13 @@ import Messages from "./Messages";
 import MessageInput from "./MessageInput";
 import EmptyState from "./EmptyState";
 import useConversation from "../../store/useConversation";
+import { useGetMessages } from "../../hooks/useGetMessages";
+import { useAuthContext } from "../../context/AuthContext";
 
 const MessageContainer = () => {
   const { selectedConversation, setSelectedConversation } = useConversation();
+  const { authUser } = useAuthContext();
+  const { loading, messages } = useGetMessages();
 
   useEffect(() => {
     //cleanup function (unmount)
@@ -19,20 +23,24 @@ const MessageContainer = () => {
         <>
           <MessageHeader selectedConversation={selectedConversation} />
           <div className="px-4 flex-1 overflow-auto">
-            <Messages sentFrom="Receiver" />
-            <Messages sentFrom="Sender" />
-            <Messages sentFrom="Receiver" />
-            <Messages sentFrom="Sender" />
-            <Messages sentFrom="Receiver" />
-            <Messages sentFrom="Sender" />
-            <Messages sentFrom="Receiver" />
-            <Messages sentFrom="Sender" />
-            <Messages sentFrom="Receiver" />
-            <Messages sentFrom="Sender" />
-            <Messages sentFrom="Receiver" />
-            <Messages sentFrom="Sender" />
-            <Messages sentFrom="Receiver" />
-            <Messages sentFrom="Sender" />
+            <>
+              {!loading && !messages ? (
+                <p>Send a message to start conversation</p>
+              ) : (
+                <>
+                  {messages?.map((message) => (
+                    <Messages
+                      message={message}
+                      sentFrom={`${
+                        authUser._id === message.senderId
+                          ? "Sender"
+                          : "Receiver"
+                      }`}
+                    />
+                  ))}
+                </>
+              )}
+            </>
           </div>
           <MessageInput />
         </>

@@ -6,7 +6,6 @@ const FriendsList = () => {
   const { loading, otherUsers } = useGetOtherUsers();
   const { selectedConversation, setSelectedConversation } = useConversation();
 
-  console.log(otherUsers);
   return (
     <div className="py-2 flex flex-col overflow-auto h-full">
       {loading ? (
@@ -23,12 +22,11 @@ const FriendsList = () => {
         <>
           {otherUsers &&
             otherUsers?.map((user) => (
-              <>
+              <div key={user._id}>
                 <div
                   className={`flex gap-2 items-center hover:bg-pink-500 rounded px-2 py-1 cursor-pointer ${
                     selectedConversation?._id === user._id ? "bg-pink-500" : ""
                   }`}
-                  key={user._id}
                   onClick={() => setSelectedConversation(user)}
                 >
                   <div className="online avatar">
@@ -48,7 +46,7 @@ const FriendsList = () => {
                   </div>
                 </div>
                 <div className="divider my-0 py-0 h-1" />
-              </>
+              </div>
             ))}
         </>
       )}
