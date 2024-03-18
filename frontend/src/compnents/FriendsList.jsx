@@ -1,8 +1,10 @@
 import React from "react";
 import { useGetOtherUsers } from "../hooks/useGetOtherUsers";
+import useConversation from "../store/useConversation";
 
 const FriendsList = () => {
   const { loading, otherUsers } = useGetOtherUsers();
+  const { selectedConversation, setSelectedConversation } = useConversation();
 
   console.log(otherUsers);
   return (
@@ -23,8 +25,11 @@ const FriendsList = () => {
             otherUsers?.map((user) => (
               <>
                 <div
-                  className="flex gap-2 items-center hover:bg-pink-500 rounded px-2 py-1 cursor-pointer"
+                  className={`flex gap-2 items-center hover:bg-pink-500 rounded px-2 py-1 cursor-pointer ${
+                    selectedConversation?._id === user._id ? "bg-pink-500" : ""
+                  }`}
                   key={user._id}
+                  onClick={() => setSelectedConversation(user)}
                 >
                   <div className="online avatar">
                     <div className="w-12 rounded-full h-12 flex justify-center items-center font-semibold bg-pink-100 border-pink-100 border-[1px]">
