@@ -117,8 +117,18 @@ const SignUp = () => {
               </Link>
             </p>
             <div className="">
-              <button className="btn btn-block btn-sm mt-3 bg-pink-600 hover:bg-pink-700 hover:border-pink-700 border-pink-600 text-gray-50">
-                Sign up
+              <button
+                className={`btn btn-block btn-sm mt-3   text-gray-50 ${
+                  loading
+                    ? "bg-pink-300 border-pink-300  hover:bg-pink-300 hover:border-pink-300 cursor-not-allowed"
+                    : "bg-pink-600 border-pink-600  hover:bg-pink-700 hover:border-pink-700 "
+                }`}
+              >
+                {loading ? (
+                  <span className="loading loading-dots loading-md"></span>
+                ) : (
+                  "Sign Up"
+                )}
               </button>
             </div>
           </form>
