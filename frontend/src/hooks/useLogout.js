@@ -17,8 +17,6 @@ export const useLogout = () => {
 
       const data = await res.json();
       setLoading(false);
-      console.log(data);
-
       if (data?.error) {
         throw new Error(data.error);
       } else {

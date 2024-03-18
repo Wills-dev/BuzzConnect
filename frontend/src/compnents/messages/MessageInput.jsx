@@ -1,13 +1,17 @@
 import React from "react";
+import { useSendMessage } from "../../hooks/useSendMessage";
 
 const MessageInput = () => {
+  const { message, setMessage, handleSendMessage } = useSendMessage();
   return (
-    <form className="px-4 my-3">
+    <form className="px-4 my-3" onSubmit={handleSendMessage}>
       <div className="w-full relative">
         <input
           type="text"
           name="message"
           id="message"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
           className="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 text-white outline-none "
           placeholder="Send a message..."
         />
