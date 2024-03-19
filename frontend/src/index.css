@@ -5,6 +5,11 @@
 /* dark  mode scroolbar */
 
 ::-webkit-scrollbar {
+  width: 0px;
+  transition: all 0.3s ease-out;
+}
+
+::-webkit-scrollbar:hover {
   width: 3px;
 }
 
