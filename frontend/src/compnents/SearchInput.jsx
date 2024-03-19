@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import useConversation from "../store/useConversation";
 import { useGetOtherUsers } from "../hooks/useGetOtherUsers";
+import toast from "react-hot-toast";
 
 const SearchInput = () => {
   const [search, setSearch] = useState("");
@@ -18,9 +19,19 @@ const SearchInput = () => {
         user.userName.toLowerCase().includes(search.toLowerCase())
     );
 
+    console.log(users);
+
     if (users) {
       setSelectedConversation(users);
       setSearch();
+    } else {
+      toast.error(`No such user found`, {
+        duration: 4000,
+        style: {
+          background: "#f74764",
+          color: "#fff",
+        },
+      });
     }
   };
 
