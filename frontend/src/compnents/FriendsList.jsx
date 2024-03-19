@@ -1,10 +1,12 @@
 import React from "react";
 import { useGetOtherUsers } from "../hooks/useGetOtherUsers";
 import useConversation from "../store/useConversation";
+import { useSocketContext } from "../context/SocketContext";
 
 const FriendsList = () => {
   const { loading, otherUsers } = useGetOtherUsers();
   const { selectedConversation, setSelectedConversation } = useConversation();
+  const { onlineUsers } = useSocketContext();
 
   return (
     <div className="py-2 flex flex-col overflow-auto h-full">
@@ -29,7 +31,11 @@ const FriendsList = () => {
                   }`}
                   onClick={() => setSelectedConversation(user)}
                 >
-                  <div className="online avatar">
+                  <div
+                    className={`${
+                      onlineUsers.includes(user._id) ? "online" : ""
+                    } avatar `}
+                  >
                     <div className="w-12 rounded-full h-12 flex justify-center items-center font-semibold bg-pink-100 border-pink-100 border-[1px]">
                       <div className="flex justify-center items-center h-full w-full text-gray-500">
                         {user?.firstName?.charAt(0).toUpperCase()}

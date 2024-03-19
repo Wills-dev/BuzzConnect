@@ -1,10 +1,14 @@
 import React from "react";
+import { useAuthContext } from "../../context/AuthContext";
 
 const EmptyState = () => {
+  const { authUser } = useAuthContext();
   return (
     <div className="flex items-center justify-center w-full h-full">
       <div className="px-4 text-center text-gray-200 font-semibold flex flex-col items-center gap-2 sm:text-lg md:text-xl">
-        <p>Welcome 👋 Wills Vic </p>
+        <p>
+          Welcome 👋 {authUser?.firstName} {authUser?.lastName}
+        </p>
         <p>Select a chat to start messaging</p>
         <svg
           xmlns="http://www.w3.org/2000/svg"
