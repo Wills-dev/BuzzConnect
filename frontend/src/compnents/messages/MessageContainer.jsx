@@ -6,12 +6,15 @@ import EmptyState from "./EmptyState";
 import useConversation from "../../store/useConversation";
 import { useGetMessages } from "../../hooks/useGetMessages";
 import { useAuthContext } from "../../context/AuthContext";
+import useListenMessages from "../../hooks/useListenMessages";
 
 const MessageContainer = () => {
   const { selectedConversation, setSelectedConversation } = useConversation();
   const { authUser } = useAuthContext();
   const { loading, messages } = useGetMessages();
   const lastMessageRef = useRef();
+
+  useListenMessages();
 
   useEffect(() => {
     setTimeout(() => {

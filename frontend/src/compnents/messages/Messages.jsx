@@ -5,6 +5,7 @@ const Messages = ({ sentFrom, message }) => {
   const today = new Date();
   const yesterday = new Date(today);
   yesterday.setDate(today.getDate() - 1);
+  const shakeClass = message.shouldShake ? "shake" : "";
 
   return (
     <div
@@ -13,7 +14,7 @@ const Messages = ({ sentFrom, message }) => {
       <div
         className={`chat-bubble    ${
           sentFrom === "Sender" ? "" : "bg-pink-400 text-gray-700"
-        }`}
+        } ${shakeClass}`}
       >
         {message?.message}
       </div>
