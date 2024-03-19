@@ -11,12 +11,13 @@ const io = new Server(server, {
     methods: ["GET", "POST"],
   },
 });
+
 io.on("connection", (socket) => {
   console.log("a user connected", socket.id);
 
   //socket.on() is used to listen to the events. cann be used both on client and server side
   socket.on("disconnect", () => {
-    console.log("user disconnect", socket.id);
+    console.log("user disconnected", socket.id);
   });
 });
 
