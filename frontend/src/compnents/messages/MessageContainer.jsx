@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import MessageHeader from "./MessageHeader";
 import Messages from "./Messages";
 import MessageInput from "./MessageInput";
@@ -11,6 +11,13 @@ const MessageContainer = () => {
   const { selectedConversation, setSelectedConversation } = useConversation();
   const { authUser } = useAuthContext();
   const { loading, messages } = useGetMessages();
+  const lastMessageRef = useRef();
+
+  useEffect(() => {
+    setTimeout(() => {
+      lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+  }, [messages]);
 
   useEffect(() => {
     //cleanup function (unmount)
@@ -29,14 +36,17 @@ const MessageContainer = () => {
               ) : (
                 <>
                   {messages?.map((message) => (
-                    <Messages
-                      message={message}
-                      sentFrom={`${
-                        authUser._id === message.senderId
-                          ? "Sender"
-                          : "Receiver"
-                      }`}
-                    />
+                    <div className="" key={message._id} ref={lastMessageRef}>
+                      <Messages
+                        message={message}
+                        key={message.id}
+                        sentFrom={`${
+                          authUser.id === message.senderId
+                            ? "Receiver"
+                            : "Sender"
+                        }`}
+                      />
+                    </div>
                   ))}
                 </>
               )}

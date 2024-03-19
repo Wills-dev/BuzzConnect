@@ -1,11 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
+import useConversation from "../store/useConversation";
+import { useGetOtherUsers } from "../hooks/useGetOtherUsers";
 
 const SearchInput = () => {
+  const [search, setSearch] = useState("");
+  const { setSelectedConversation } = useConversation();
+  const { otherUsers } = useGetOtherUsers();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!search) return;
+
+    const users = otherUsers?.find(
+      (user) =>
+        user.firstName.toLowerCase().includes(search.toLowerCase()) ||
+        user.lastName.toLowerCase().includes(search.toLowerCase()) ||
+        user.userName.toLowerCase().includes(search.toLowerCase())
+    );
+
+    if (users) {
+      setSelectedConversation(users);
+      setSearch();
+    }
+  };
+
   return (
-    <form className="flex items-center  rounded-full bg-pink-50 ">
+    <form
+      className="flex items-center  rounded-full bg-pink-50 "
+      onSubmit={handleSubmit}
+    >
       <input
         type="search"
-        name=""
+        name="search"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
         id=""
         placeholder="Search..."
         className="input input-bordered rounded-full bg-pink-50 text-gray-500"
